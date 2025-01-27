@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseKeeper", "HouseKeeper\HouseKeeper.csproj", "{36A2FE8F-76A5-4C10-BAF9-A887D9DA92BC}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2305D4D0-2E3A-4085-BE1F-682762DA985E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36A2FE8F-76A5-4C10-BAF9-A887D9DA92BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A2FE8F-76A5-4C10-BAF9-A887D9DA92BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A2FE8F-76A5-4C10-BAF9-A887D9DA92BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A2FE8F-76A5-4C10-BAF9-A887D9DA92BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2305D4D0-2E3A-4085-BE1F-682762DA985E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2305D4D0-2E3A-4085-BE1F-682762DA985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2305D4D0-2E3A-4085-BE1F-682762DA985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2305D4D0-2E3A-4085-BE1F-682762DA985E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

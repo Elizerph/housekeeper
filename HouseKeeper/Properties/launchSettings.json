@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HouseKeeper": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

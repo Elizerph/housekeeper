@@ -1,0 +1,14 @@
+services:
+  housekeeper:
+    image: ${DOCKER_REGISTRY-}housekeeper
+    build:
+      context: .
+      dockerfile: HouseKeeper/Dockerfile
+    environment:
+        - bottoken=$"bottoken"
+  db:
+    image: postgres
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: test
+      ports: "8001:5432"
