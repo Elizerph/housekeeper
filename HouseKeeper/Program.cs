@@ -1,8 +1,7 @@
-﻿using HouseKeeper.Core;
+﻿using HouseKeeper.Contexts;
+using HouseKeeper.Core;
 
-using log4net;
-
-using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -12,40 +11,37 @@ namespace HouseKeeper;
 
 internal class Program
 {
-    private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-    private const string BotTokenVariableName = "bottoken";
-
     private static async Task Main(string[] args)
     {
-        var botToken = Environment.GetEnvironmentVariable(BotTokenVariableName);
-        if (string.IsNullOrEmpty(botToken))
-        {
-            logger.Error("Cannot read token");
-            return;
-        }
+        var configuration = new ConfigurationBuilder()
+            .AddEnvironmentVariables()
+            .Build();
+        var botToken = configuration.GetValue<string>("bottoken");
+        var connectionString = configuration.GetValue<string>("dbconnection");
+        var applicationContextFactory = new ApplicationContextFactory(connectionString);
+        var updateHandler = new UpdateHandler(applicationContextFactory);
 
         using var cts = new CancellationTokenSource();
         var bot = new TelegramBotClient(botToken, cancellationToken: cts.Token);
         var commands = new[]
-        { 
+        {
             new BotCommand
-            { 
+            {
                 Command = "manage",
                 Description = "Manage your datasets"
             },
             new BotCommand
-            { 
+            {
                 Command = "observation",
                 Description = "Make an observation into specified dataset"
             },
             new BotCommand
-            { 
+            {
                 Command = "report",
                 Description = "Observations from specified dataset"
             }
         };
         await bot.SetMyCommands(commands);
-        var updateHandler = new UpdateHandler();
         await bot.ReceiveAsync(updateHandler);
     }
 }

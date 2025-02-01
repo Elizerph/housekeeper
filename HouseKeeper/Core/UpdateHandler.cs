@@ -16,6 +16,12 @@ public class UpdateHandler : IUpdateHandler
     private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
     private static readonly object _syncRoot = new();
     private readonly Dictionary<long, IState> _userStates = [];
+    private readonly IApplicationContextFactory _applicationContextFactory;
+
+    public UpdateHandler(IApplicationContextFactory applicationContextFactory)
+    {
+        _applicationContextFactory = applicationContextFactory;
+    }
 
     public Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source, CancellationToken cancellationToken)
     {
@@ -68,10 +74,8 @@ public class UpdateHandler : IUpdateHandler
         {
             if (_userStates.TryGetValue(userId, out var state))
                 return state;
-
             var dialog = new BotDialog(bot, chat.Id, userId);
-            var applicationContextFactory = new ApplicationContextFactory();
-            var newState = new StartState(dialog, applicationContextFactory);
+            var newState = new StartState(dialog, _applicationContextFactory);
             _userStates[userId] = newState;
             return newState;
         }

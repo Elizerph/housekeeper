@@ -6,6 +6,7 @@ services:
       dockerfile: HouseKeeper/Dockerfile
     environment:
         - bottoken=$"bottoken"
+        - dbconnection=$"dbconnection"
   db:
     image: postgres
     shm_size: 128mb

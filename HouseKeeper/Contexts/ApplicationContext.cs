@@ -15,15 +15,10 @@ public class ApplicationContext : DbContext
     public DbSet<Observation> Observations { get; set; }
     public DbSet<ObservationAttributeValue> ObservationAttributeValues { get; set; }
 
-    public ApplicationContext()
+    public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        : base(options) 
     {
-        //Database.EnsureDeleted();
         Database.EnsureCreated();
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=example");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
