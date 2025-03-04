@@ -21,8 +21,12 @@ internal class Program
         var applicationContextFactory = new ApplicationContextFactory(connectionString);
         var updateHandler = new UpdateHandler(applicationContextFactory);
 
+        var httpClient = new HttpClient
+        {
+            Timeout = TimeSpan.FromMinutes(2)
+        };
         using var cts = new CancellationTokenSource();
-        var bot = new TelegramBotClient(botToken, cancellationToken: cts.Token);
+        var bot = new TelegramBotClient(botToken, httpClient, cts.Token);
         var commands = new[]
         {
             new BotCommand
