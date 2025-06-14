@@ -50,7 +50,7 @@ public class ManageDatasetListState : DefaultState
         {
             switch (buttonData)
             {
-                case "temlate":
+                case "template":
                     var content = JsonConvert.SerializeObject(DatasetStub.Temlpate, Formatting.Indented);
                     await Dialog.SendTextFile("Template dataset", $"Template.json", new[] { content }.ToAsyncEnumerable());
                     return new DefaultState(this);
