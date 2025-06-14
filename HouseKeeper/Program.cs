@@ -31,11 +31,6 @@ internal class Program
         {
             new BotCommand
             {
-                Command = "manage",
-                Description = "Manage your datasets"
-            },
-            new BotCommand
-            {
                 Command = "observation",
                 Description = "Make an observation into specified dataset"
             },
@@ -43,9 +38,14 @@ internal class Program
             {
                 Command = "report",
                 Description = "Observations from specified dataset"
+            },
+            new BotCommand
+            {
+                Command = "manage",
+                Description = "Manage your datasets"
             }
         };
-        await bot.SetMyCommands(commands);
-        await bot.ReceiveAsync(updateHandler);
+        await bot.SetMyCommands(commands, cancellationToken: cts.Token);
+        await bot.ReceiveAsync(updateHandler, cancellationToken: cts.Token);
     }
 }

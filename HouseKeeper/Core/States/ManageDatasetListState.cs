@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HouseKeeper.Models.Stubs;
+
+using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
 
@@ -31,21 +33,6 @@ public class ManageDatasetListState : DefaultState
                     },
                     new MessageButton
                     {
-                        Label = "Rename",
-                        Data = "rename"
-                    },
-                    new MessageButton
-                    {
-                        Label = "Dimensions",
-                        Data = "dimensions"
-                    },
-                    new MessageButton
-                    {
-                        Label = "Observation attributes",
-                        Data = "observation_attributes"
-                    },
-                    new MessageButton
-                    {
                         Label = "Delete",
                         Data = "delete"
                     }
@@ -63,9 +50,10 @@ public class ManageDatasetListState : DefaultState
         {
             switch (buttonData)
             {
-                case "create":
-                    await Dialog.Send("Enter new dataset name:");
-                    return new CreateDatasetState(this);
+                case "temlate":
+                    var content = JsonConvert.SerializeObject(DatasetStub.Temlpate, Formatting.Indented);
+                    await Dialog.SendTextFile("Template dataset", $"Template.json", new[] { content }.ToAsyncEnumerable());
+                    return new DefaultState(this);
                 case "import":
                     await Dialog.Send("Drop json file:");
                     return new ImportDatasetState(this);

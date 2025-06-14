@@ -41,8 +41,8 @@ public class DefaultState : State
                     buttons.AddRange([
                         new MessageButton
                         {
-                            Label = "Create",
-                            Data = "create"
+                            Label = "Get template",
+                            Data = "template"
                         },
                         new MessageButton
                         { 

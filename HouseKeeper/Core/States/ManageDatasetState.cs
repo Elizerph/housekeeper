@@ -56,67 +56,6 @@ public class ManageDatasetState : DefaultState
                         return new DefaultState(this);
                     }
                 }
-            case "rename":
-                await Dialog.Send("Enter new name:");
-                return new RenameDatasetState(this, _datasetId);
-            case "dimensions":
-                {
-                    await using var context = await ApplicationContextFactory.Create();
-                    var dataset = await context.Datasets
-                        .AsNoTracking()
-                        .Include(x => x.Dimensions)
-                        .Where(x => x.Id == _datasetId)
-                        .FirstOrDefaultAsync();
-                    if (dataset != null)
-                    {
-                        var buttons = dataset.Dimensions.Select(x => new MessageButton
-                        {
-                            Label = x.Name,
-                            Data = x.Id.ToString()
-                        }).ToList();
-                        buttons.Add(new MessageButton
-                        {
-                            Label = "Create",
-                            Data = "create"
-                        });
-                        await Dialog.Send($"Manage dimensions of {dataset.Name}:", buttons);
-                        return new ManageDimensionListState(this, _datasetId);
-                    }
-                    else
-                    {
-                        await Dialog.Send("Dataset does not exist");
-                        return new DefaultState(this);
-                    }
-                }
-            case "observation_attributes":
-                {
-                    await using var context = await ApplicationContextFactory.Create();
-                    var dataset = await context.Datasets
-                        .AsNoTracking()
-                        .Include(x => x.ObservationAttributes)
-                        .Where(x => x.Id == _datasetId)
-                        .FirstOrDefaultAsync();
-                    if (dataset != null)
-                    {
-                        var buttons = dataset.ObservationAttributes.Select(x => new MessageButton
-                        {
-                            Label = x.Name,
-                            Data = x.Id.ToString()
-                        }).ToList();
-                        buttons.Add(new MessageButton
-                        {
-                            Label = "Create",
-                            Data = "create"
-                        });
-                        await Dialog.Send($"Manage observation attributes of {dataset.Name}:", buttons);
-                        return new ManageObservationAttributeListState(this, _datasetId);
-                    }
-                    else
-                    {
-                        await Dialog.Send("Dataset does not exist");
-                        return new DefaultState(this);
-                    }
-                }
             case "delete":
                 {
                     await using var context = await ApplicationContextFactory.Create();
